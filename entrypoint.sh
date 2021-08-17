@@ -40,12 +40,9 @@ fi
 # Create a dedicated profile for this action to avoid
 # conflicts with other actions.
 # https://github.com/jakejarvis/s3-sync-action/issues/1
-aws configure --profile invalidate-cloudfront-action <<-EOF > /dev/null 2>&1
-${AWS_ACCESS_KEY_ID}
-${AWS_SECRET_ACCESS_KEY}
-${AWS_REGION}
-text
-EOF
+aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile invalidate-cloudfront-action
+aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile invalidate-cloudfront-action
+aws configure set default.region ${AWS_REGION} --profile invalidate-cloudfront-action
 
 # Set it here to avoid logging keys/secrets
 if [ "$DEBUG" = "1" ]; then
